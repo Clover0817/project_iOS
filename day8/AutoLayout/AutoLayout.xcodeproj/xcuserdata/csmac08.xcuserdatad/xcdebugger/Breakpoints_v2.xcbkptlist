@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "4ECCF1D4-7A4A-425D-B2D7-52E60C6CE539"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "60E767D3-856F-4AC7-B634-39CDAF609232"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AutoLayout/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4CB7AFB9-5096-4BE3-B640-608B0B1C2512"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AutoLayout/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "initPlay()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4CB7AFB9-5096-4BE3-B640-608B0B1C2512 - e781756f5ae96dd3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AutoLayout.ViewController.audioPlayerDidFinishPlaying(_: __C.AVAudioPlayer, successfully: Swift.Bool) -&gt; ()"
+                  moduleName = "AutoLayout"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/csmac08/Desktop/work/day8/AutoLayout/AutoLayout/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "77"
+                  endingLineNumber = "77"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  uuid = "4CB7AFB9-5096-4BE3-B640-608B0B1C2512 - 8ddfa539865a5a7c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AutoLayout.ViewController.initPlay() -&gt; ()"
+                  moduleName = "AutoLayout"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/csmac08/Desktop/work/day8/AutoLayout/AutoLayout/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
+                  offsetFromSymbolStart = "2764">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
