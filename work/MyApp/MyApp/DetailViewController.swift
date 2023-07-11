@@ -44,10 +44,9 @@ class DetailViewController: UIViewController {
     // 화면의 입력 값(제목, 내용) 으로 DB 수정
     @IBAction func btnModify(_ sender: UIButton) {
         taskTitle = tfTitle.text
-        pickDate = Int32()
         detail = tfDetail.text
  
-        manager.update(title: taskTitle, date: pickDate, detail: detail)
+        manager.update(id: Int32(receiveTask.id), title: taskTitle, detail: detail)
     }
     
     /*
