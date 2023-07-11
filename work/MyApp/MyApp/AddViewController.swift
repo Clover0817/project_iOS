@@ -44,8 +44,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
 
     @IBAction func btnSave(_ sender: UIButton) {
-        dpPicker.setDate(dpPicker.date as Date, animated: true)
-        
         taskTitle = tfTitle.text
         pickDate = Int32(dpPicker.date.timeIntervalSince1970)
         detail = tfDetail.text
