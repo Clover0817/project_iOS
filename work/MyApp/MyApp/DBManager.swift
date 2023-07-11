@@ -19,6 +19,7 @@ class DBManager {
     let COL_ICON = "icon"
     
     var db : OpaquePointer?
+    var dto: TaskDto!
     
 //    앱을 실행할 때 수행
     func initDatabase() {
@@ -42,7 +43,7 @@ class DBManager {
 //    테이블 생성
     private func createTable() {
         let createTableString = """
-            CREATE TABLE IF NOT EXISTS \(TABLE_NAME) ( \(COL_ID) INTEGER PRIMARY KEY AUTOINCREMENT, \(COL_TITLE) TEXT, \(COL_DATE) INT32, \(COL_DETAIL) TEXT, \(COL_ICON) TEXT);
+            CREATE TABLE IF NOT EXISTS \(TABLE_NAME) ( \(COL_ID) INTEGER PRIMARY KEY AUTOINCREMENT, \(COL_TITLE) TEXT, \(COL_DATE) INTEGER, \(COL_DETAIL) TEXT, \(COL_ICON) TEXT);
             """
         
         var createTableStmt: OpaquePointer?
@@ -73,6 +74,7 @@ class DBManager {
     
 //    items 배열에 DB의 내용 전체를 추가
     func readAllData() {
+        openDatabase()
         let sql = "select * from \(TABLE_NAME)"
         
         var queryResult: OpaquePointer?
@@ -89,9 +91,13 @@ class DBManager {
             let date = sqlite3_column_int(queryResult, 2)
             let detail = String(cString: sqlite3_column_text(queryResult, 3))
             let icon = String(cString: sqlite3_column_text(queryResult, 4))
-            
-            items.append(TaskDto(id: Int(id), title: title, date: date, detail: detail, icon: icon))
+
+            dto = TaskDto(id: Int(id), title: title, date: date, detail: detail, icon: icon)
+            items.append(dto)
         }
+
+        sqlite3_finalize(queryStmt)
+        closeDatabase()
         
 ////        샘플이므로 DB 구현 시 주석 처리
 //        items.append(TaskDto(id: 1, title: "hello", date: 1595415833, detail: "hi", icon: "clock.png"))
@@ -119,11 +125,12 @@ class DBManager {
         } else {
             print("Insert statement is not prepared. ")
         }
+        closeDatabase()
     }
     
 //    항목 수정
-    func update(title: String, date: Int32, detail: String) {
-        let query = "update \(TABLE_NAME) set \(COL_TITLE) = ?, \(COL_DATE) = ? \(COL_DETAIL) = ? where \(COL_ID) = ?"
+    func update(id: Int32, title: String, detail: String) {
+        let query = "update \(TABLE_NAME) set \(COL_TITLE) = ?, \(COL_DETAIL) = ? where \(COL_ID) = ?"
         
         var updateStmt: OpaquePointer?
         
@@ -136,12 +143,22 @@ class DBManager {
         bindTextParams(updateStmt!, no: 1, param: title)
         bindIntParams(updateStmt!, no: 2, param: Int(date))
         bindTextParams(updateStmt!, no: 3, param: detail)
+
+        if sqlite3_step(updateStmt) != SQLITE_DONE{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("Update Failure: \(errmsg)")
+            return
+        } else{
+            print("Updated Successfully")
+        }
         
         sqlite3_finalize(updateStmt)
+        closeDatabase()
     }
     
 //    항목 삭제
-    func delete(_ id: Int) {
+    func delete(_ id: Int32) {
+        openDatabase()
         let query = "delete from \(TABLE_NAME) where \(COL_ID) = ?"
         var deleteStmt: OpaquePointer?
         
@@ -151,7 +168,7 @@ class DBManager {
             return
         }
         
-        bindIntParams(deleteStmt!, no: 1, param: id) //함수화
+        bindIntParams(deleteStmt!, no: 1, param: id)
         
         if sqlite3_step(deleteStmt) != SQLITE_DONE {
             let errmsg = String(cString: sqlite3_errmsg(db)!)
@@ -160,6 +177,7 @@ class DBManager {
         }
         
         sqlite3_finalize(deleteStmt)
+        closeDatabase()
     }
     
     func bindTextParams(_ stmt: OpaquePointer, no: Int, param: String) {
